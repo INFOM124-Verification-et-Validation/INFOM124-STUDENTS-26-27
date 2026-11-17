@@ -11,6 +11,7 @@ import nl.tudelft.jpacman.level.LevelFactory;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.level.PlayerFactory;
 import nl.tudelft.jpacman.sprite.PacManSprites;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +19,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ClydeTest {
 
-    private PacManSprites pacManSprites;
     private GhostMapParser ghostMapParser;
     private PlayerFactory playerFactory;
 
     @BeforeEach
     public void setUp(){
-        pacManSprites = new PacManSprites();
+        PacManSprites pacManSprites = new PacManSprites();
         GhostFactory ghostFactory = new GhostFactory(pacManSprites);
         LevelFactory levelFactory = new LevelFactory(pacManSprites, ghostFactory);
         BoardFactory boardFactory = new BoardFactory(pacManSprites);
@@ -52,6 +52,7 @@ public class ClydeTest {
         level.registerPlayer(player);
 
         Clyde clyde = Navigation.findUnitInBoard(Clyde.class,level.getBoard());
+        Assertions.assertNotNull(clyde);
         Optional<Direction> directionOptimal = clyde.nextAiMove();
         assertThat(directionOptimal).isEqualTo(Optional.of(Direction.EAST));
     }
@@ -85,6 +86,7 @@ public class ClydeTest {
         level.registerPlayer(player);
 
         Clyde clyde = Navigation.findUnitInBoard(Clyde.class,level.getBoard());
+        Assertions.assertNotNull(clyde);
         Optional<Direction> directionOptimal = clyde.nextAiMove();
         assertThat(directionOptimal).isEqualTo(Optional.of(Direction.NORTH));
     }
@@ -107,6 +109,7 @@ public class ClydeTest {
         level.registerPlayer(player);
 
         Clyde clyde = Navigation.findUnitInBoard(Clyde.class,level.getBoard());
+        Assertions.assertNotNull(clyde);
         assertThat(clyde.nextAiMove()).isEqualTo(Optional.empty());
     }
 }
